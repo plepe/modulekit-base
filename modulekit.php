@@ -1,11 +1,9 @@
 <?
-$id="modulekit-hooks";
+$id="modulekit-base";
 
-$name="Modulekit - Hooks";
+$name="Modulekit - Basic extensions";
 
 $include_php=array(
-  "inc/hooks.php",
 );
 $include_js=array(
-  "inc/hooks.js",
 );
