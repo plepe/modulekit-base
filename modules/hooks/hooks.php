@@ -25,14 +25,20 @@ $hooks_intern=array();
  */
 function call_hooks($hook, $vars=0, $param1=0, $param2=0, $param3=0, $param4=0) {
   global $hooks_intern;
+  $ret=array();
 
   if(!array_key_exists($hook, $hooks_intern))
     return;
 
   if($hooks_intern[$hook])
     foreach($hooks_intern[$hook] as $h) {
-      $h(&$vars, $param1, $param2, $param3, $param4);
+      $r=$h(&$vars, $param1, $param2, $param3, $param4);
+
+      if(isset($r))
+        $ret[]=$r;
     }
+
+  return $ret;
 }
 
 /**
