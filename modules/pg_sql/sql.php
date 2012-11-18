@@ -120,4 +120,74 @@ function parse_hstore($text) {
   return eval("return array($text);");
 }
 
+function pg_decode_array($str) {
+  if(!preg_match("/^\{(.*)\}$/", $str, $m))
+    return null;
+  $str=$m[1];
 
+  $ret=array();
+  $mode=0;
+  $curr="";
+  $p=0;
+
+  while($p<mb_strlen($str)) {
+    $chr=mb_substr($str, $p, 1);
+
+    if($mode==0) {
+      if($chr=="\"")
+	$mode=10;
+      else {
+        $mode=1;
+	$curr.=$chr;
+      }
+    }
+    elseif($mode==1) {
+      if($chr==",") {
+	$mode=0;
+	$ret[]=$curr;
+	$curr="";
+      }
+      else
+	$curr.=$chr;
+    }
+    elseif($mode==10) {
+      if($chr=="\"") {
+	$mode=20;
+      }
+      elseif($chr=="\\")
+	$mode=11;
+      else
+	$curr.=$chr;
+    }
+    elseif($mode==11) {
+      $curr.=$chr;
+      $mode=10;
+    }
+    elseif($mode==20) {
+      if($chr==",") {
+	$ret[]=$curr;
+	$curr="";
+	$mode=0;
+      }
+      else
+	print "pg_decode_array(): Error at position $p (mode $mode), can't read '$chr'\n";
+    }
+    $p++;
+  }
+
+  if($mode==0)
+    ;
+  else if(($mode==1)||($mode==20)) {
+    $ret[]=$curr;
+  }
+  else {
+    print "pg_decode_array(): Error at end of string (mode $mode)\n";
+  }
+
+  return $ret;
+}
+
+function pg_encode_array($arr, $type="text") {
+  $arr=array_map("postgre_escape", $arr);
+  return "Array[".implode(", ", $arr)."]::{$type}[]";
+}
