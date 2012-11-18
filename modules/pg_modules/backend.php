@@ -4,7 +4,7 @@ function pg_modules_init() {
   global $plugins_dir;
   $plugins_db=array();
 
-  $res=sql_query("select * from plugins");
+  $res=sql_query("select * from pg_modules");
   while($elem=pg_fetch_assoc($res)) {
     $plugins_db[$elem['id']]=$elem;
   }
@@ -45,26 +45,26 @@ function pg_modules_init() {
       sort($files);
 
       foreach($files as $file) {
-	debug("Plugin '$plugin', (re-)loading functions/$file", "plugins");
+	debug("Plugin '$plugin', (re-)loading functions/$file", "pg_modules");
 	sql_query(file_get_contents("$plugins_dir/$plugin/functions/$file"));
       }
     }
     elseif(file_exists("$plugins_dir/$plugin/functions.sql")) {
       // it's a single file -> load
-      debug("Plugin '$plugin', (re-)loading functions.sql", "plugins");
+      debug("Plugin '$plugin', (re-)loading functions.sql", "pg_modules");
       sql_query(file_get_contents("$plugins_dir/$plugin/functions.sql"));
     }
 
     if((function_exists("{$plugin}_db_init"))&&
        (!isset($plugins_db[$plugin]))) {
-      debug("Plugin '$plugin', calling db_init-function", "plugins");
+      debug("Plugin '$plugin', calling db_init-function", "pg_modules");
       call_user_func("{$plugin}_db_init");
     }
 
     if(file_exists("$plugins_dir/$plugin/db.sql")) {
       // If plugin has never been loaded before, load db.sql
       if(!isset($plugins_db[$plugin])) {
-	debug("Plugin '$plugin', initializing db", "plugins");
+	debug("Plugin '$plugin', initializing db", "pg_modules");
 	sql_query(file_get_contents("$plugins_dir/$plugin/db.sql"));
       }
       // load all missing updates
@@ -72,7 +72,7 @@ function pg_modules_init() {
 	$updates_done=explode(";", $plugin_tags->get("updates"));
 	foreach($updates as $update=>$files) {
 	  if(!in_array($update, $updates_done)) {
-	    debug("Plugin '$plugin', loading update $update", "plugins");
+	    debug("Plugin '$plugin', loading update $update", "pg_modules");
 	    if(in_array("sql", $files))
 	      sql_query(file_get_contents("$plugins_dir/$plugin/update/$update.sql"));
 	  }
@@ -84,8 +84,8 @@ function pg_modules_init() {
     $pg_plugin=postgre_escape($plugin);
     $plugin_tags->set("updates", implode(";", array_keys($updates)));
     $pg_tags=array_to_hstore($plugin_tags->data());
-    sql_query("delete from plugins where id=$pg_plugin");
-    sql_query("insert into plugins values ($pg_plugin, $pg_tags)");
+    sql_query("delete from pg_modules where id=$pg_plugin");
+    sql_query("insert into pg_modules values ($pg_plugin, $pg_tags)");
   }
 }
 
