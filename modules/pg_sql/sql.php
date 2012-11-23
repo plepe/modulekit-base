@@ -58,6 +58,9 @@ function sql_query($qry, &$conn=0) {
   // check for database connection
   sql_connect(&$conn);
 
+  // Rewrite SQL query
+  call_hooks("pg_sql_query", &$qry, $conn);
+
   // Do we want debug information?
   if(isset($conn['debug'])&&($conn['debug']))
     debug("CONN {$conn['title']}: ".$qry, "sql");
