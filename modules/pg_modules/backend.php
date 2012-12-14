@@ -39,28 +39,12 @@ function pg_modules_init() {
     }
     ksort($updates);
 
+    $list=modulekit_includes($module_id, "pgsql-functions");
     // always reload functions
-    $dir=modulekit_file($module_id, "functions/");
-    if(is_dir($dir)) {
-      // it's a list of files: read, sort and load each one of them
-      $files=array();
-      $d=opendir($dir);
-      while($f=readdir($d)) {
-	if(preg_match("/^[^.].*\.sql/", $f))
-	  $files[]=$f;
-      }
-
-      sort($files);
-
-      foreach($files as $file) {
-	debug("Module '$module_id', (re-)loading functions/$file", "pg_modules");
-	sql_query(file_get_contents("$dir/$file"));
-      }
-    }
-    elseif(file_exists(modulekit_file($module_id, "functions.sql"))) {
-      // it's a single file -> load
-      debug("Module '$module_id', (re-)loading functions.sql", "pg_modules");
-      sql_query(file_get_contents(modulekit_file($module_id, "functions.sql")));
+    sort($list);
+    foreach($list as $file) {
+      debug("Module '$module_id', (re-)loading $file", "pg_modules");
+      sql_query(file_get_contents("$file"));
     }
 
     if((function_exists("{$module_id}_db_init"))&&
@@ -69,11 +53,13 @@ function pg_modules_init() {
       call_user_func("{$module_id}_db_init");
     }
 
-    if(file_exists(modulekit_file($module_id, "db.sql"))) {
+    $list=modulekit_includes($module_id, "pgsql-init");
+    if(sizeof($list)) {
       // If plugin has never been loaded before, load db.sql
       if(!isset($plugins_db[$module_id])) {
 	debug("Module '$module_id', initializing db", "pg_modules");
-	sql_query(file_get_contents(modulekit_file($module_id, "db.sql")));
+	foreach($list as $file)
+	  sql_query(file_get_contents($file));
       }
       // load all missing updates
       else {
