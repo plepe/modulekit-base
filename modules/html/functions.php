@@ -23,3 +23,25 @@ function print_add_html_headers() {
 
   $add_html_headers=null;
 }
+
+/* html_export_var() - exports variables to JavaScript
+ * e.g.
+ * html_export_var(array("foo"=>"bar", "test"=>array(1, 2)));
+ * ->
+ *   var foo="bar";
+ *   var test=[1,2];
+ */
+function html_export_var($data) {
+  global $add_html_headers;
+
+  $ret ="<script type='text/javascript'>\n";
+  foreach($data as $k=>$v) {
+    $ret.="var $k=".json_encode($v).";\n";
+  }
+  $ret.="</script>\n";
+
+  if(is_array($add_html_headers))
+    $add_html_headers[]=$ret;
+  else
+    print $add_html_headers;
+}
