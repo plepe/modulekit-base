@@ -85,3 +85,15 @@ function unregister_hooks_object(ob) {
   delete(hooks_object_objects[p]);
   delete(hooks_object_hooks[p]);
 }
+
+// nodejs compatibility
+if((typeof(module)!="undefined")&&module.exports) {
+  module.exports.call=call_hooks;
+  module.exports.register=register_hook;
+}
+else {
+  window.hooks={
+    call: call_hooks,
+    register: register_hook
+  };
+}
