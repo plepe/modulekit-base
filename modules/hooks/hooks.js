@@ -23,6 +23,15 @@ var hooks_intern=new Array();
 var hooks_object_objects=[];
 var hooks_object_hooks=[];
 
+function hooks_array_search(el, arr) {
+  for(var i=0; i<arr.length; i++) {
+    if(arr[i]===el)
+      return i;
+  }
+
+  return false;
+}
+
 /**
  * Call hooks - All registered functions will be called
  * @param text hook The hooks to be called
@@ -101,7 +110,7 @@ function register_hook(hook, fun, ob) {
   hooks_intern[hook].push(fun);
 
   if(ob) {
-    var p=array_search(ob, hooks_object_objects, true);
+    var p=hooks_array_search(ob, hooks_object_objects);
     if(p===false) {
       p=hooks_object_objects.length;
       hooks_object_objects.push(ob);
@@ -117,7 +126,7 @@ function register_hook(hook, fun, ob) {
  * @param object The object
  */
 function unregister_hooks_object(ob) {
-  var p=array_search(ob, hooks_object_objects, true);
+  var p=hooks_array_search(ob, hooks_object_objects);
   if(p===false)
     return;
 
