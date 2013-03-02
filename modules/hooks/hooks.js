@@ -30,10 +30,17 @@ var hooks_object_hooks=[];
  * @param any params Additional vars
  */
 function call_hooks(hook, vars, param1, param2, param3, param4) {
+  var ret=[];
+
   if(hooks_intern[hook])
     for(var i=0; i<hooks_intern[hook].length; i++) {
-      hooks_intern[hook][i](vars, param1, param2, param3, param4);
+      var r=hooks_intern[hook][i](vars, param1, param2, param3, param4);
+
+      if(r!=null)
+	ret.push(r);
     }
+
+  return ret;
 }
 
 /**
