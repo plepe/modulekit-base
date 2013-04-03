@@ -22,6 +22,7 @@ $hooks_intern=array();
  * @param text hook The hooks to be called
  * @param any vars A variable which will be passed by reference and can therefore by modified
  * @param any params Additional vars
+ * @return array array of non-null return values
  */
 function call_hooks($hook, $vars=0, $param1=0, $param2=0, $param3=0, $param4=0) {
   global $hooks_intern;
