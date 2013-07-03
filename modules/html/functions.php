@@ -43,5 +43,5 @@ function html_export_var($data) {
   if(is_array($add_html_headers))
     $add_html_headers[]=$ret;
   else
-    print $add_html_headers;
+    print $ret;
 }
