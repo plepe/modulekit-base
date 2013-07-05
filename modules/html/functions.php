@@ -5,10 +5,10 @@ $add_html_headers=array();
 /* add_html_header() - add additional html headers to page
  * @param str string full tag(s), e.g. "<meta foo=\"bar\">"
  */
-function add_html_header($str) {
+function add_html_header($str, $weight=0) {
   global $add_html_headers;
 
-  $add_html_headers[]=$str;
+  $add_html_headers[]=array($weight, $str);
 }
 
 /* print_add_html_headers() - print all headers, will be called from index
@@ -16,6 +16,11 @@ function add_html_header($str) {
  */
 function print_add_html_headers() {
   global $add_html_headers;
+
+  if(!$add_html_headers)
+    return;
+
+  $add_html_headers=weight_sort($add_html_headers);
 
   print "<!-- add_html_headers -->\n";
   print implode("\n", $add_html_headers);
