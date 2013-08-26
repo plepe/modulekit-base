@@ -1,0 +1,16 @@
+.messages ul {
+  border: 2px solid #000000;
+  background: #a0a0a0;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
+.messages ul.notice {
+  border: 2px solid #08a400;
+  background: #78c175;
+}
+.messages ul.error {
+  border: 2px solid #ff0000;
+  background: #ff6767;
+}
