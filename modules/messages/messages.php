@@ -38,3 +38,9 @@ function messages_keep() {
   global $messages_keep;
   $messages_keep=true;
 }
+
+if(function_exists("register_hook")) {
+  register_hook("page_reload", function() {
+    messages_keep();
+  });
+}
