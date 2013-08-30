@@ -52,6 +52,16 @@ function page_url($param, $options=array()) {
   return "?".implode("&amp;", $str);
 }
 
+function page_reload($param=null, $options=array()) {
+  if($param === null)
+    $param = $_GET;
+
+  if(function_exists("call_hooks"))
+    call_hooks("page_reload", $param);
+
+  Header("Location: ".htmlspecialchars_decode(page_url($param)));
+}
+
 class Page {
   function __construct($param, $options) {
     $this->param=$param;
