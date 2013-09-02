@@ -71,6 +71,10 @@ class Page {
   function content() {
   }
 
+  function title() {
+    return "";
+  }
+
   function url() {
     return page_url($this->param, $this->options);
   }
