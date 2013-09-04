@@ -7,6 +7,11 @@ function sql($query, $mysql_data=null) {
   if(!$mysql_data)
     $mysql_data=$mysql_default;
 
+  if(!mysql_select_db($mysql_data[db], $mysql_data[linkid])) {
+    echo "Can't select database!<br>";
+    exit;
+  }
+
   if($mysql_data['debug']&1)
     print "<!-- SQL-Query: $query -->\n";
   if($mysql_data['debug']&2) {
