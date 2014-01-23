@@ -20,6 +20,9 @@
 function weight_sort($arr) {
   $ret1=array();
 
+  if(!$arr)
+    return array();
+
   // first put all elements into an assoc. array
   foreach($arr as $k=>$cur) {
     if((sizeof($cur)==2)&&array_key_exists(0, $cur)&&array_key_exists(1, $cur)) {
