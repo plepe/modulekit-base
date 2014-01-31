@@ -3,6 +3,9 @@ $include=array(
   'php'=>array(
     'messages.php',
   ),
+  'js'=>array(
+    'messages.js',
+  ),
   'css'=>array(
     'style.css',
   ),

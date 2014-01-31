@@ -15,7 +15,7 @@ function messages_add($text, $level=MSG_NOTICE) {
 }
 
 function messages_debug($var, $level=MSG_DEBUG) {
-  $text = "<pre>" . print_r($var, 1) . "</pre>";
+  $text = "<div class='messages_expandable'><pre>" . print_r($var, 1) . "</pre></div>";
   messages_add($text, $level);
 }
 

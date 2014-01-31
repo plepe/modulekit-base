@@ -18,3 +18,8 @@
   border: 2px solid #de00ff;
   background: #ef82ff;
 }
+.messages ul.debug li div.messages_expandable {
+  margin-bottom: 0.5em;
+  max-height: 5em;
+  overflow: auto;
+}
