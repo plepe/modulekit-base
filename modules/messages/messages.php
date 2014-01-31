@@ -15,7 +15,16 @@ function messages_add($text, $level=MSG_NOTICE) {
 }
 
 function messages_debug($var, $level=MSG_DEBUG) {
-  $text = "<div class='messages_expandable'><pre>" . print_r($var, 1) . "</pre></div>";
+  if(in_array(gettype($var), array("array", "object")))
+    $text = "<pre>" . print_r($var, 1) . "</pre>";
+  elseif($var === null)
+    $text = "(null)";
+  elseif(gettype($var) == "string")
+    $text = "(string): \"{$var}\"";
+  else
+    $text = "(".gettype($var)."): {$var}";
+
+  $text = "<div class='messages_expandable'>{$text}</div>";
   messages_add($text, $level);
 }
 
