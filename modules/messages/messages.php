@@ -14,18 +14,24 @@ function messages_add($text, $level=MSG_NOTICE) {
   $_SESSION['messages'][$level][]=$text;
 }
 
-function messages_debug($var, $level=MSG_DEBUG) {
-  if(in_array(gettype($var), array("array", "object")))
-    $text = "<pre>" . print_r($var, 1) . "</pre>";
-  elseif($var === null)
-    $text = "(null)";
-  elseif(gettype($var) == "string")
-    $text = "(string): \"{$var}\"";
-  else
-    $text = "(".gettype($var)."): {$var}";
+function messages_debug() {
+  $text = array();
+
+  foreach(func_get_args() as $var) {
+    if(in_array(gettype($var), array("array", "object")))
+      $text[] = "<pre>" . print_r($var, 1) . "</pre>";
+    elseif($var === null)
+      $text[] = "(null)";
+    elseif(gettype($var) == "string")
+      $text[] = "(string): \"{$var}\"";
+    else
+      $text[] = "(".gettype($var)."): {$var}";
+  }
+
+  $text = implode("<br>\n", $text);
 
   $text = "<div class='messages_expandable'>{$text}</div>";
-  messages_add($text, $level);
+  messages_add($text, MSG_DEBUG);
 }
 
 function messages_print() {
