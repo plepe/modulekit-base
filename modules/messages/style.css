@@ -14,3 +14,7 @@
   border: 2px solid #ff0000;
   background: #ff6767;
 }
+.messages ul.debug {
+  border: 2px solid #de00ff;
+  background: #ef82ff;
+}

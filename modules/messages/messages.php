@@ -1,6 +1,7 @@
 <?
 define(MSG_ERROR, "error");
 define(MSG_NOTICE, "notice");
+define(MSG_DEBUG, "debug");
 global $messages_keep;
 $messages_keep=false;
 
@@ -11,6 +12,11 @@ function messages_add($text, $level=MSG_NOTICE) {
     $_SESSION['messages'][$level]=array();
 
   $_SESSION['messages'][$level][]=$text;
+}
+
+function messages_debug($var, $level=MSG_DEBUG) {
+  $text = "<pre>" . print_r($var, 1) . "</pre>";
+  messages_add($text, $level);
 }
 
 function messages_print() {
