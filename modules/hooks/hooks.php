@@ -33,7 +33,7 @@ function call_hooks($hook, $vars=0, $param1=0, $param2=0, $param3=0, $param4=0) 
 
   if($hooks_intern[$hook])
     foreach($hooks_intern[$hook] as $h) {
-      $r=$h(&$vars, $param1, $param2, $param3, $param4);
+      $r=$h($vars, $param1, $param2, $param3, $param4);
 
       if(isset($r))
         $ret[]=$r;
