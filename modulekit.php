@@ -1,4 +1,4 @@
-<?
+<?php
 $id="modulekit-base";
 
 $name="Modulekit - Basic extensions";

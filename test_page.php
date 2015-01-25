@@ -1,7 +1,7 @@
 <?php include "conf.php"; /* load a local configuration */ ?>
-<? $modulekit_load=array("page"); ?>
+<?php $modulekit_load=array("page"); ?>
 <?php include "modulekit/loader.php"; /* loads all php-includes */ ?>
-<?
+<?php
 class Page_default extends Page {
   function content() {
     $other_page=get_page("other");
@@ -35,7 +35,7 @@ else {
     <?php print modulekit_include_css(); /* prints all css-includes */ ?>
   </head>
   <body>
-<?
+<?php
 print $content;
 ?>
   </body>

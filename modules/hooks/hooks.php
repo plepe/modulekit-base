@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Hooks - Functions can register to hooks and will be called on certain 
  * events in the system.

@@ -1,4 +1,4 @@
-<?
+<?php
 function sql_connect(&$conn) {
   // If database connection has not been opened yet, open it
   if(!isset($conn['connection'])) {

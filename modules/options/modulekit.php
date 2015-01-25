@@ -1,4 +1,4 @@
-<?
+<?php
 $id="options";
 
 $depend=array("hooks");

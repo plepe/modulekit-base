@@ -1,4 +1,4 @@
-<?
+<?php
 $id="hooks";
 
 $include=array(

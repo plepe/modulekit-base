@@ -1,4 +1,4 @@
-<?
+<?php
 $id="weight_sort";
 
 $include=array(

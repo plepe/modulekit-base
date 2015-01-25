@@ -1,4 +1,4 @@
-<?
+<?php
 $id="html";
 
 $depend=array("weight_sort");

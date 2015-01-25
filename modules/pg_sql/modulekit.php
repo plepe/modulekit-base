@@ -1,4 +1,4 @@
-<?
+<?php
 $id="pg_sql";
 
 $include=array(

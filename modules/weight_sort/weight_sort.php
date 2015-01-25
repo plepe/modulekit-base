@@ -1,4 +1,4 @@
-<?
+<?php
 // weight_sort(arr)
 // Parameters:
 // arr ... an array of elements

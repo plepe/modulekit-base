@@ -1,4 +1,4 @@
-<?
+<?php
 /* Additional HTML Headers */
 $add_html_headers=array();
 

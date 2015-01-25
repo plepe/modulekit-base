@@ -1,4 +1,4 @@
-<?
+<?php
 $id="pg_modules";
 
 $include=array(

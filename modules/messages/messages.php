@@ -1,4 +1,4 @@
-<?
+<?php
 define(MSG_ERROR, "error");
 define(MSG_NOTICE, "notice");
 define(MSG_DEBUG, "debug");

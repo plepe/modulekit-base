@@ -1,4 +1,4 @@
-<?
+<?php
 function pg_modules_init() {
   global $modulekit;
   $plugins_db=array();

@@ -1,4 +1,4 @@
-<?
+<?php
 function get_page($param=array(), $options=array()) {
   if(is_string($param))
     $param=array("page"=>$param);

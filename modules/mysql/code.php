@@ -1,4 +1,4 @@
-<?
+<?php
 $mysql_default=null;
 
 function sql($query, $mysql_data=null) {

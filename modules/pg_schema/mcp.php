@@ -1,4 +1,4 @@
-<?
+<?php
 function register_pg_schema($schema_id) {
   global $pg_schemas;
   global $pg_schemas_tr;
