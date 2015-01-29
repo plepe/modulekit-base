@@ -10,7 +10,7 @@ function sql_connect(&$conn) {
     if(!$conn['connection']) {
       debug("db connection failed", "sql");
 
-      call_hooks("sql_connection_failed", &$conn);
+      call_hooks("sql_connection_failed", $conn);
 
       // still no valid connection - exit
       if(!$conn['connection']) {
@@ -56,10 +56,10 @@ function sql_query($qry, &$conn=0) {
   }
 
   // check for database connection
-  sql_connect(&$conn);
+  sql_connect($conn);
 
   // Rewrite SQL query
-  call_hooks("pg_sql_query", &$qry, $conn);
+  call_hooks("pg_sql_query", $qry, $conn);
 
   // Do we want debug information?
   if(isset($conn['debug'])&&($conn['debug']))
@@ -76,7 +76,7 @@ function sql_query($qry, &$conn=0) {
       pg_close($conn['connection']);
       unset($conn['connection']);
 
-      call_hooks("sql_connection_failed", &$conn);
+      call_hooks("sql_connection_failed", $conn);
 
       // if connection is back, retry query
       if(isset($conn['connection'])&&
@@ -95,7 +95,7 @@ function sql_query($qry, &$conn=0) {
     }
 
     $error=pg_last_error();
-    call_hooks("sql_error", &$db, $qry, $error);
+    call_hooks("sql_error", $db, $qry, $error);
 
     // If we want debug information AND we have an error, tell about it
     if(isset($conn['debug'])&&($conn['debug']))

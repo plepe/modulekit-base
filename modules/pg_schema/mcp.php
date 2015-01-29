@@ -29,7 +29,7 @@ function pg_schema_update() {
   }
 }
 
-function pg_schema_expand_schemas($qry, $conn) {
+function pg_schema_expand_schemas(&$qry, $conn) {
   global $pg_schemas_tr;
 
   $qry=strtr($qry, $pg_schemas_tr);
