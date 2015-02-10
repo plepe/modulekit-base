@@ -24,7 +24,7 @@ $hooks_intern=array();
  * @param any params Additional vars
  * @return array array of non-null return values
  */
-function call_hooks($hook, $vars=0, $param1=0, $param2=0, $param3=0, $param4=0) {
+function call_hooks($hook, &$vars=0, $param1=0, $param2=0, $param3=0, $param4=0) {
   global $hooks_intern;
   $ret=array();
 
