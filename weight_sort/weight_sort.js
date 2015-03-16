@@ -15,6 +15,7 @@
 // Notes:
 // Entries in the source array with the same weight are returned in the
 // same order
+// * weight might be a function closure
 function weight_sort(arr) {
   function numerical_cmp(a, b) {
     return a-b;
@@ -36,6 +37,9 @@ function weight_sort(arr) {
       wgt = cur.weight;
       data = cur;
     }
+
+    if(typeof wgt == "function")
+      wgt = wgt();
 
     if(!wgt)
       wgt=0;

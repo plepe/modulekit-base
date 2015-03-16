@@ -17,6 +17,7 @@
 // Notes:
 // Entries in the source array with the same weight are returned in the
 // same order
+// * weight might be a function closure
 function weight_sort($arr) {
   $ret1=array();
 
@@ -27,12 +28,17 @@ function weight_sort($arr) {
   foreach($arr as $k=>$cur) {
     if((sizeof($cur)==2)&&array_key_exists(0, $cur)&&array_key_exists(1, $cur)) {
       $wgt=$cur[0];
-      $ret1[$wgt][$k]=$cur[1];
+      $data = $cur[1];
     }
     else {
       $wgt=(isset($cur['weight'])?$cur['weight']:0);
-      $ret1[$wgt][$k]=$cur;
+      $data = $cur;
     }
+
+    if(is_callable($wgt))
+      $wgt = call_user_func($wgt);
+
+    $ret1[$wgt][$k] = $data;
   }
 
   // get the keys, convert to value, order them
