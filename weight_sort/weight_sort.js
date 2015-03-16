@@ -1,10 +1,12 @@
-// weight_sort(arr)
+// weight_sort(arr, [weight_key])
 // Parameters:
 // arr ... an array of form [ [ weight, var], ... ]
 //         [ [ -3, A ], [ -1, B ], [ 5, C ], [ -1, D ] ]
 //         OR
 //         an array of form [ { 'weight': value, other key/values } ]
 //         [ { 'weight': -3, k: A ], { 'weight': -1, v: B }, [ 5, C ] ]
+// weight_key ... name of the key which holds each element's weight (default:
+//                'weight')
 //
 //  as the last item shows, you can even mix the forms
 //
@@ -16,12 +18,14 @@
 // Entries in the source array with the same weight are returned in the
 // same order
 // * weight might be a function closure
-function weight_sort(arr) {
+function weight_sort(arr, weight_key) {
   function numerical_cmp(a, b) {
     return a-b;
   }
 
   var ret1={};
+  if(!weight_key)
+    weight_key = 'weight';
 
   // first put all elements into an assoc. array
   for(var i=0; i<arr.length; i++) {
@@ -34,7 +38,7 @@ function weight_sort(arr) {
       data = cur[1];
     }
     else {
-      wgt = cur.weight;
+      wgt = cur[weight_key];
       data = cur;
     }
 

@@ -1,5 +1,5 @@
 <?php
-// weight_sort(arr)
+// weight_sort(arr, [weight_key])
 // Parameters:
 // arr ... an array of elements
 //           an element may be: array( weight, var )
@@ -7,6 +7,8 @@
 //
 // e.g.:
 //       array( 'g'=>array( -3, A ), array( -1, B ), array( 'weight'=>5, 'foo'=>'bar' ), 'f'=>array( -1, D ) )
+// weight_key ... name of the key which holds each element's weight (default:
+//                'weight')
 //
 // Returns:
 // An array sorted by the weight of the source, e.g.
@@ -18,7 +20,7 @@
 // Entries in the source array with the same weight are returned in the
 // same order
 // * weight might be a function closure
-function weight_sort($arr) {
+function weight_sort($arr, $weight_key='weight') {
   $ret1=array();
 
   if(!$arr)
@@ -31,7 +33,7 @@ function weight_sort($arr) {
       $data = $cur[1];
     }
     else {
-      $wgt=(isset($cur['weight'])?$cur['weight']:0);
+      $wgt=(isset($cur[$weight_key])?$cur[$weight_key]:0);
       $data = $cur;
     }
 
