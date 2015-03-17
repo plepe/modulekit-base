@@ -53,10 +53,18 @@ function json_readable_encode($in, $indent_string = "\t", $indent = 0, Closure $
 
     $out = '';
 
+    // see http://stackoverflow.com/a/173479
+    $is_assoc = array_keys($in) !== range(0, count($in) -1);
+
     foreach ($in as $key=>$value)
     {
-        $out .= str_repeat($indent_string, $indent + 1);
-        $out .= "\"".$_escape((string)$key)."\": ";
+	if($is_assoc) {
+	  $out .= str_repeat($indent_string, $indent + 1);
+	  $out .= "\"".$_escape((string)$key)."\": ";
+	}
+	else {
+	  $out .= str_repeat($indent_string, $indent + 1);
+	}
 
         if (is_object($value) || is_array($value))
         {
@@ -88,8 +96,14 @@ function json_readable_encode($in, $indent_string = "\t", $indent = 0, Closure $
         $out = substr($out, 0, -2);
     }
 
-    $out = str_repeat($indent_string, $indent) . "{\n" . $out;
-    $out .= "\n" . str_repeat($indent_string, $indent) . "}";
+    if($is_assoc) {
+      $out = str_repeat($indent_string, $indent) . "{\n" . $out;
+      $out .= "\n" . str_repeat($indent_string, $indent) . "}";
+    }
+    else {
+      $out = str_repeat($indent_string, $indent) . "[\n" . $out;
+      $out .= "\n" . str_repeat($indent_string, $indent) . "]";
+    }
 
     return $out;
 }
