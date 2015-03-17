@@ -25,7 +25,7 @@
     along with this software. If not, see <http://www.gnu.org/licenses/>.
 */
 
-function json_readable_encode($in, $indent = 0, Closure $_escape = null)
+function json_readable_encode($in, $indent_string = "\t", $indent = 0, Closure $_escape = null)
 {
     if (__CLASS__ && isset($this))
     {
@@ -55,13 +55,13 @@ function json_readable_encode($in, $indent = 0, Closure $_escape = null)
 
     foreach ($in as $key=>$value)
     {
-        $out .= str_repeat("\t", $indent + 1);
+        $out .= str_repeat($indent_string, $indent + 1);
         $out .= "\"".$_escape((string)$key)."\": ";
 
         if (is_object($value) || is_array($value))
         {
             $out .= "\n";
-            $out .= call_user_func($_myself, $value, $indent + 1, $_escape);
+            $out .= call_user_func($_myself, $value, $indent_string, $indent + 1, $_escape);
         }
         elseif (is_bool($value))
         {
@@ -88,8 +88,8 @@ function json_readable_encode($in, $indent = 0, Closure $_escape = null)
         $out = substr($out, 0, -2);
     }
 
-    $out = str_repeat("\t", $indent) . "{\n" . $out;
-    $out .= "\n" . str_repeat("\t", $indent) . "}";
+    $out = str_repeat($indent_string, $indent) . "{\n" . $out;
+    $out .= "\n" . str_repeat($indent_string, $indent) . "}";
 
     return $out;
 }
