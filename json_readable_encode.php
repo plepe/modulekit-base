@@ -66,7 +66,10 @@ function json_readable_encode($in, $indent_string = "\t", $indent = 0, Closure $
 	  $out .= str_repeat($indent_string, $indent + 1);
 	}
 
-        if (is_object($value) || is_array($value))
+	if ((is_object($value) || is_array($value)) && (!count($value))) {
+	    $out .= "[]";
+	}
+        elseif (is_object($value) || is_array($value))
         {
             $out .= "\n";
             $out .= call_user_func($_myself, $value, $indent_string, $indent + 1, $_escape);
