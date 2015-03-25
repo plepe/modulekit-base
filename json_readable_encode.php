@@ -45,8 +45,8 @@ function json_readable_encode($in, $indent_string = "\t", $indent = 0, Closure $
         $_escape = function ($str)
         {
             return str_replace(
-                array('\\', '"', "\n", "\r", "\b", "\f", "\t", '/', '\\\\u'),
-                array('\\\\', '\\"', "\\n", "\\r", "\\b", "\\f", "\\t", '\\/', '\\u'),
+                array('\\', '"', "\n", "\r", "\b", "\f", "\t", '\\\\u'),
+                array('\\\\', '\\"', "\\n", "\\r", "\\b", "\\f", "\\t", '\\u'),
                 $str);
         };
     }
