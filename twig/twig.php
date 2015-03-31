@@ -64,3 +64,8 @@ function twig_render_custom($template, $data) {
 
   return $twig->render("custom:" . $template, $data);
 }
+
+register_hook("init", function() {
+  if(file_exists("lib/twig.js/twig.min.js"))
+    add_html_header("<script src='lib/twig.js/twig.min.js'></script>");
+});
