@@ -1,5 +1,5 @@
 <?php
-require "{$modulekit['root_path']}/lib/Twig/lib/Twig/Autoloader.php";
+if(include "{$modulekit['root_path']}/lib/Twig/lib/Twig/Autoloader.php") {
 Twig_Autoloader::register();
 
 class CustomTwigTemplates implements Twig_LoaderInterface, Twig_ExistsLoaderInterface
@@ -43,15 +43,24 @@ register_hook("init", function() {
 
   call_hooks("twig_init");
 });
+}
 
 function twig_render($template_id, $data) {
   global $twig;
+
+  if(!$twig) {
+    trigger_error("Twig library could not be loaded!");
+  }
 
   return $twig->render($template_id, $data);
 }
 
 function twig_render_custom($template, $data) {
   global $twig;
+
+  if(!$twig) {
+    trigger_error("Twig library could not be loaded!");
+  }
 
   return $twig->render("custom:" . $template, $data);
 }
