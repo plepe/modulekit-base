@@ -35,7 +35,11 @@ register_hook("init", function() {
   global $twig;
 
   $loaders = call_hooks("twig_loaders");
-  $loaders[] = new Twig_Loader_Filesystem("{$modulekit['root_path']}/templates");
+
+  $template_dir = "{$modulekit['root_path']}/templates";
+  if(file_exists($template_dir))
+    $loaders[] = new Twig_Loader_Filesystem($template_dir);
+
   $loaders[] = new CustomTwigTemplates();
 
   $loader = new Twig_Loader_Chain($loaders);
