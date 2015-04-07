@@ -27,6 +27,10 @@
 
 function json_readable_encode($in, $indent_string = "\t", $indent = 0, Closure $_escape = null)
 {
+    if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+      return json_encode($in, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+    }
+
     if (__CLASS__ && isset($this))
     {
         $_myself = array($this, __FUNCTION__);
