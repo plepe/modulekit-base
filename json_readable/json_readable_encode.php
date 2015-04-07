@@ -25,7 +25,7 @@
     along with this software. If not, see <http://www.gnu.org/licenses/>.
 */
 
-function json_readable_encode($in, $indent_string = "\t", $indent = 0, Closure $_escape = null)
+function json_readable_encode($in, $indent_string = "    ", $indent = 0, Closure $_escape = null)
 {
     if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
       return json_encode($in, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
@@ -75,7 +75,6 @@ function json_readable_encode($in, $indent_string = "\t", $indent = 0, Closure $
 	}
         elseif (is_object($value) || is_array($value))
         {
-            $out .= "\n";
             $out .= call_user_func($_myself, $value, $indent_string, $indent + 1, $_escape);
         }
         elseif (is_bool($value))
@@ -104,11 +103,11 @@ function json_readable_encode($in, $indent_string = "\t", $indent = 0, Closure $
     }
 
     if($is_assoc) {
-      $out = str_repeat($indent_string, $indent) . "{\n" . $out;
+      $out =  "{\n" . $out;
       $out .= "\n" . str_repeat($indent_string, $indent) . "}";
     }
     else {
-      $out = str_repeat($indent_string, $indent) . "[\n" . $out;
+      $out = "[\n" . $out;
       $out .= "\n" . str_repeat($indent_string, $indent) . "]";
     }
 
