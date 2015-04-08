@@ -1,5 +1,5 @@
 <?php
-$id = "json_readable";
+$id = "json_readable_encode";
 
 $include = array(
   'php' => array(
