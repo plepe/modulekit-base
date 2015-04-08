@@ -57,6 +57,10 @@ function json_readable_encode($in, $indent_string = "    ", $indent = 0, Closure
 
     $out = '';
 
+    // TODO: format value (unicode, slashes, ...)
+    if((!is_array($in)) && (!is_object($in)))
+      return json_encode($in);
+
     // see http://stackoverflow.com/a/173479
     $is_assoc = array_keys($in) !== range(0, count($in) -1);
 
