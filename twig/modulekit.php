@@ -1,4 +1,4 @@
-<?
+<?php
 $name = "Twig integration";
 
 $depend = array("hooks", "html");
