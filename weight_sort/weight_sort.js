@@ -55,7 +55,9 @@ function weight_sort(arr, weight_key) {
   }
 
   // get the keys, convert to value, order them
-  var keys1=keys(ret1);
+  var keys1=[];
+  for(var k in ret1)
+    keys1.push(k);
   keys1.sort(numerical_cmp);
   var ret2=[];
 
