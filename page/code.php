@@ -47,6 +47,9 @@ function page_url_helper($param, $prefix="") {
 }
 
 function page_url($param, $options=array()) {
+  if(is_string($param))
+    return $param;
+
   $str=page_url_helper($param);
 
   return "?".implode("&amp;", $str);
