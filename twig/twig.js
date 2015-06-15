@@ -20,3 +20,7 @@ function twig_render_custom(template, data) {
   var t = twig({ data: template });
   return t.render(data);
 }
+
+register_hook("init", function() {
+  call_hooks("twig_init");
+});
