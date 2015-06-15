@@ -82,3 +82,12 @@ class Page {
     return page_url($this->param, $this->options);
   }
 }
+
+// if modulekit-twig is loaded, add a page_url formatter
+register_hook("twig_init", function() {
+  global $twig;
+
+  $twig->addFunction(new Twig_SimpleFunction('page_url', function($data) {
+    return page_url($data);
+  }, array("is_safe"=>array("html"))));
+});

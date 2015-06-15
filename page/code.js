@@ -48,3 +48,9 @@ function page_url(param, options) {
 
   return "?" + str.join("&amp;");
 }
+
+register_hook("twig_init", function() {
+  Twig.extendFunction("page_url", function(param) {
+    return page_url(param);
+  });
+});
