@@ -11,10 +11,10 @@ function add_html_header($str, $weight=0) {
   $add_html_headers[]=array($weight, $str);
 }
 
-/* print_add_html_headers() - print all headers, will be called from index
+/* get_add_html_headers() - returns all headers, will be called from index
  * resets list of additional html headers
  */
-function print_add_html_headers() {
+function get_add_html_headers() {
   global $add_html_headers;
 
   if(!$add_html_headers)
@@ -22,11 +22,20 @@ function print_add_html_headers() {
 
   $add_html_headers=weight_sort($add_html_headers);
 
-  print "<!-- add_html_headers -->\n";
-  print implode("\n", $add_html_headers);
-  print "\n<!-- /add_html_headers -->\n";
+  $ret  = "<!-- add_html_headers -->\n";
+  $ret .= implode("\n", $add_html_headers);
+  $ret .= "\n<!-- /add_html_headers -->\n";
 
   $add_html_headers=null;
+
+  return $ret;
+}
+
+/* print_add_html_headers() - directly print headers to stdout
+ * legacy function - use get_add_html_headers() instead.
+ */
+function print_add_html_headers() {
+  print get_add_html_headers();
 }
 
 /* html_export_var() - exports variables to JavaScript
