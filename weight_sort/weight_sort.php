@@ -4,6 +4,7 @@
 // arr ... an array of elements
 //           an element may be: array( weight, var )
 //           or array('weight'=>weight, ...)
+//           or an object with property 'weight'
 //
 // e.g.:
 //       array( 'g'=>array( -3, A ), array( -1, B ), array( 'weight'=>5, 'foo'=>'bar' ), 'f'=>array( -1, D ) )
@@ -28,7 +29,11 @@ function weight_sort($arr, $weight_key='weight') {
 
   // first put all elements into an assoc. array
   foreach($arr as $k=>$cur) {
-    if((sizeof($cur)==2)&&array_key_exists(0, $cur)&&array_key_exists(1, $cur)) {
+    if(is_object($cur)) {
+      $wgt = isset($cur->$weight_key) ? $cur->$weight_key : 0;
+      $data = $cur;
+    }
+    else if((sizeof($cur)==2)&&array_key_exists(0, $cur)&&array_key_exists(1, $cur)) {
       $wgt=$cur[0];
       $data = $cur[1];
     }
