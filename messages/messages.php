@@ -19,7 +19,7 @@ function messages_debug() {
 
   foreach(func_get_args() as $var) {
     if(in_array(gettype($var), array("array", "object")))
-      $text[] = "<pre>" . print_r($var, 1) . "</pre>";
+      $text[] = "<pre>" . htmlspecialchars(print_r($var, 1)) . "</pre>";
     elseif($var === null)
       $text[] = "(null)";
     elseif(gettype($var) == "string")
