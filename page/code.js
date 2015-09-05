@@ -49,6 +49,34 @@ function page_url(param, options) {
   return "?" + str.join("&amp;");
 }
 
+function _page_res_insert(ret, key, value) {
+  if(var m =key.match(
+  ret[key] = value;
+}
+
+function page_resolve_url_params(url) {
+  var m;
+  if(!url) {
+    url = document.location.search.substr(1);
+  }
+  else if(m = url.match(/^[^\?]*\?(.*)/)) {
+    url = m[1];
+  }
+
+  var ret = {};
+  var ar = url.split(/&/);
+
+  for(var i = 0; i < ar.length; i++) {
+    var x = ar[i].split(/=/);
+    var key = decodeURIComponent(x[0]);
+    x.shift();
+    var value = decodeURIComponent(x.join(/=/));
+    _page_res_insert(ret, key, value);
+  }
+
+  return ret;
+}
+
 register_hook("twig_init", function() {
   Twig.extendFunction("page_url", function(param) {
     return page_url(param);
