@@ -5,6 +5,10 @@
 //         OR
 //         an array of form [ { 'weight': value, other key/values } ]
 //         [ { 'weight': -3, k: A ], { 'weight': -1, v: B }, [ 5, C ] ]
+//         OR
+//         an object of form { 'index': {'weight': value, other key/values }, ... }
+//         (please note that numerical indexes won't work)
+//
 // weight_key ... name of the key which holds each element's weight (default:
 //                'weight')
 //
@@ -26,6 +30,19 @@ function weight_sort(arr, weight_key) {
   var ret1={};
   if(!weight_key)
     weight_key = 'weight';
+
+  // check if input array is an object, convert to array
+  var is_object = false;
+  if(typeof arr.length == 'undefined') {
+    var new_arr = [];
+    var is_object = true;
+    for(var i in arr) {
+      arr[i].__weight_sort_index = i;
+      new_arr.push(arr[i]);
+    }
+
+    arr = new_arr;
+  }
 
   // first put all elements into an assoc. array
   for(var i=0; i<arr.length; i++) {
@@ -66,6 +83,21 @@ function weight_sort(arr, weight_key) {
     for(var j=0; j<ret1[keys1[i]].length; j++) {
       ret2.push(ret1[keys1[i]][j]);
     }
+  }
+
+  // rebuild object if necessary
+  if(is_object) {
+    var new_arr = {};
+    for(var i = 0; i < ret2.length; i++) {
+      var ob = ret2[i];
+
+      var index = ob.__weight_sort_index;
+      delete(ob.__weight_sort_index);
+
+      new_arr[index] = ob;
+    }
+
+    ret2 = new_arr;
   }
 
   return ret2;
