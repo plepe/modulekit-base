@@ -50,8 +50,29 @@ function page_url(param, options) {
 }
 
 function _page_res_insert(ret, key, value) {
-  if(var m =key.match(
-  ret[key] = value;
+  var m;
+
+  if(m = key.match(/^([^\[]+)\[([^\]]*)\](.*)?/)) {
+    if(m[2] == "") {
+      if(!ret[m[1]])
+        ret[m[1]] = [];
+
+      ret[m[1]].push(value);
+    }
+    else {
+      if(!(m[1] in ret))
+        ret[m[1]] = {};
+
+      if(m[3])
+        _page_res_insert(ret[m[1]], m[2] + m[3], value);
+      else
+        _page_res_insert(ret[m[1]], m[2], value);
+    }
+
+    return;
+  }
+  else
+    ret[key] = value;
 }
 
 function page_resolve_url_params(url) {
