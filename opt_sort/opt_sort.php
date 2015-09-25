@@ -15,6 +15,28 @@ function opt_sort($data, $sorts) {
       if(array_key_exists('dir', $s))
         $dir = $s['dir'] == 'desc' ? -1 : 1;
 
+      if(array_key_exists('null', $s) &&
+	(($a[$s['key']] === null) || ($b[$s['key']] === null))) {
+
+	if((($a[$s['key']] === null) && ($b[$s['key']] === null)))
+	  continue;
+
+	switch($s['null']) {
+	  case 'first':
+	    return $a[$s['key']] !== null;
+	  case 'last':
+	    return $a[$s['key']] === null;
+	  case 'higher':
+	    if($a[$s['key']] === null)
+	      return $s['dir'] === 'asc';
+	    if($b[$s['key']] === null)
+	      return $s['dir'] === 'desc';
+	  case 'lower':
+	  default:
+	    break;
+	}
+      }
+
       switch(!array_key_exists('type', $s) ? null : $s['type']) {
         case 'num':
         case 'numeric':

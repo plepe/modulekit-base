@@ -27,3 +27,4 @@ List of sort options. Each option is a hash array:
   * type: "alpha" (default), "num"/"numeric", "case" (alphabetic, but case insenstive), "nat" (natural sort algorithm)
   * dir: "asc" (default) or "desc"
   * weight: defines order of sorting, if there are several sort options (the lower the value the more important; default 0).
+  * null: how to handle null values: 'lower' (default), 'higher', 'first', 'last'
