@@ -59,3 +59,17 @@ function html_export_var($data) {
   else
     print $ret;
 }
+
+function html_export_to_input($var_name, $value) {
+  if(is_array($value)) {
+    $ret = "";
+    foreach($value as $k=>$v) {
+      $ret .= html_export_to_input("{$var_name}[" . htmlspecialchars($k) . "]", $v);
+    }
+
+    return $ret;
+  }
+  else {
+    return "<input type='hidden' name='{$var_name}' value=\"" . htmlspecialchars($value) . "\"/>\n";
+  }
+}
