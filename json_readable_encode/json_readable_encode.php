@@ -117,3 +117,11 @@ function json_readable_encode($in, $indent_string = "    ", $indent = 0, Closure
 
     return $out;
 }
+
+register_hook("twig_init", function() {
+  global $twig;
+
+  $twig->addFilter(new Twig_SimpleFilter('json_readable_encode', function($data) {
+    return json_readable_encode($data);
+  }));
+});
