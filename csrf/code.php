@@ -16,3 +16,7 @@ function csrf_verify_token() {
 
   throw new Exception("Possible cross-site-request-forgery (CSRF) detected!");
 }
+
+function csrf_check_token() {
+  return $_SESSION['csrf_token'] === $_REQUEST['csrf_token'];
+}
