@@ -15,3 +15,8 @@ Return true if the csrf token is correct, otherwise throw an exception.
 csrf_check_token()
 ------------------
 Return true if the csrf token is correct, otherwise return false.
+
+Translated Strings
+==================
+'csrf:error': Error message which can be used to indicate failure.
+
