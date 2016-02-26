@@ -28,7 +28,9 @@
 function json_readable_encode($in, $indent_string = "    ", $indent = 0, Closure $_escape = null)
 {
     if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-      return json_encode($in, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+      $ret = json_encode($in, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+      $ret = preg_replace("/\[\s+\]/", "", $ret);
+      $ret = preg_replace("/\{\s+\}/", "", $ret);
     }
 
     if (__CLASS__ && isset($this))
