@@ -17,6 +17,15 @@ function csrf_verify_token() {
   throw new Exception("Possible cross-site-request-forgery (CSRF) detected!");
 }
 
-function csrf_check_token() {
-  return $_SESSION['csrf_token'] === $_REQUEST['csrf_token'];
+function csrf_check_token($msg=false) {
+  if(!array_key_exists('csrf_token', $_REQUEST))
+    return false;
+
+  if($_SESSION['csrf_token'] === $_REQUEST['csrf_token'])
+    return true;
+
+  if($msg && modulekit_loaded('messages'))
+    messages_add(is_string($msg) ? $msg : lang('csrf:error'), MSG_ERROR);
+
+  return false;
 }
