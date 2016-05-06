@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for i in tests/*/test.js ; do
+  echo "=== $i ==="
+  mocha --reporter spec `dirname $i`
+
+  if [ "$?" != "0" ] ; then
+    exit 1
+  fi
+done
