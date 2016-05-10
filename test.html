@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>modulekit-base tests</title>
+  <link rel="stylesheet" media="all" href="node_modules/mocha/mocha.css">
+</head>
+<body>
+  <div id="mocha"><p><a href=".">Index</a></p></div>
+  <div id="messages"></div>
+  <div id="fixtures"></div>
+  <!-- load test suite -->
+  <script src="node_modules/mocha/mocha.js"></script>
+  <script src="node_modules/chai/chai.js"></script>
+
+  <!-- load sources -->
+  <script src="json_readable_encode/json_readable_encode.js"></script>
+  <script src="hooks/hooks.js"></script>
+
+  <!-- init -->
+  <script>mocha.setup('bdd');</script>
+
+  <!-- load tests -->
+  <script src="tests/json_readable_encode/test.js"></script>
+  <script src="tests/hooks/test.js"></script>
+
+  <!-- run -->
+  <script>mocha.run();</script>
+</body>
+</html>
