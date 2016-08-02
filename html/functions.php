@@ -1,5 +1,6 @@
 <?php
 /* Additional HTML Headers */
+global $add_html_headers;
 $add_html_headers=array();
 
 /* add_html_header() - add additional html headers to page

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for i in tests/*/ ; do
+  echo "=== $i ==="
+  mocha --reporter spec $i
+  if [ "$?" != "0" ] ; then
+    exit 1
+  fi
+
+  phpunit --bootstrap tests/load.php "$i/test.php"
+  if [ "$?" != "0" ] ; then
+    exit 1
+  fi
+done
