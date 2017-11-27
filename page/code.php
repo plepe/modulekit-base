@@ -52,7 +52,11 @@ function page_url($param, $options=array()) {
 
   $str=page_url_helper($param);
 
-  return "?".implode("&amp;", $str);
+  if (sizeof($str)) {
+    return "?".implode("&amp;", $str);
+  }
+
+  return ".";
 }
 
 function page_reload($param=null, $options=array()) {
