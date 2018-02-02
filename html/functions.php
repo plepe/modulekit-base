@@ -18,8 +18,10 @@ function add_html_header($str, $weight=0) {
 function get_add_html_headers() {
   global $add_html_headers;
 
-  if(!$add_html_headers)
+  if(!$add_html_headers) {
+    $add_html_headers=null;
     return;
+  }
 
   $add_html_headers=weight_sort($add_html_headers);
 
