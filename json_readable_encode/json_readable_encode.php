@@ -83,21 +83,9 @@ function json_readable_encode($in, $indent_string = "    ", $indent = 0, Closure
         {
             $out .= call_user_func($_myself, $value, $indent_string, $indent + 1, $_escape);
         }
-        elseif (is_bool($value))
-        {
-            $out .= $value ? 'true' : 'false';
-        }
-        elseif (is_null($value))
-        {
-            $out .= 'null';
-        }
-        elseif (is_string($value))
-        {
-            $out .= "\"" . $_escape($value) ."\"";
-        }
         else
         {
-            $out .= $value;
+            $out .= json_encode($value);
         }
 
         $out .= ",\n";
