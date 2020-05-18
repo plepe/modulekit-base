@@ -33,6 +33,10 @@ function weight_sort($arr, $weight_key='weight') {
       $wgt = isset($cur->$weight_key) ? $cur->$weight_key : 0;
       $data = $cur;
     }
+    else if (!is_array($cur)) {
+      $wgt = 0;
+      $data = $cur;
+    }
     else if((sizeof($cur)==2)&&array_key_exists(0, $cur)&&array_key_exists(1, $cur)) {
       $wgt=$cur[0];
       $data = $cur[1];
