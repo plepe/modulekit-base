@@ -41,7 +41,7 @@ function opt_sort($data, $sorts) {
         case 'num':
         case 'numeric':
           if((float)$a[$s['key']] == (float)$b[$s['key']])
-            continue;
+            continue 2;
 
           $c = (float)$a[$s['key']] > (float)$b[$s['key']] ? 1 : -1;
           return $c * $dir;
@@ -50,7 +50,7 @@ function opt_sort($data, $sorts) {
           $c = strnatcmp($a[$s['key']], $b[$s['key']]);
 
           if($c === 0)
-            continue;
+            continue 2;
 
           return $c * $dir;
 
@@ -58,7 +58,7 @@ function opt_sort($data, $sorts) {
           $c = strcasecmp($a[$s['key']], $b[$s['key']]);
 
           if($c === 0)
-            continue;
+            continue 2;
 
           return $c * $dir;
 
@@ -67,7 +67,7 @@ function opt_sort($data, $sorts) {
           $c = strcmp($a[$s['key']], $b[$s['key']]);
 
           if($c === 0)
-            continue;
+            continue 2;
 
           return $c * $dir;
       }
