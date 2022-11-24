@@ -48,12 +48,12 @@ function print_add_html_headers() {
  *   var foo="bar";
  *   var test=[1,2];
  */
-function html_export_var($data) {
+function html_export_var($data, $options=array()) {
   global $add_html_headers;
 
   $ret ="<script type='text/javascript'>\n";
   foreach($data as $k=>$v) {
-    $ret.="var $k=".json_encode($v).";\n";
+    $ret.="var $k=".json_encode($v, array_key_exists('json_flags', $options) ? $options['json_flags'] : 0).";\n";
   }
   $ret.="</script>\n";
 
