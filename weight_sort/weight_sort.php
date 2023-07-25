@@ -66,4 +66,6 @@ function weight_sort($arr, $weight_key='weight') {
   return $ret2;
 }
 
-
+function weightSort ($arr, $weight_key='weight') {
+  return weight_sort($arr, $weight_key);
+}
